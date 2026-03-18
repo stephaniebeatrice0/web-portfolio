@@ -1,716 +1,1576 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stephanie Beatrice — Software Developer & Technical Writer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
-<head>
-    <meta charset="utf-8">
-    <title>Stephanie Beatrice</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Plus Jakarta Sans", "sans-serif"],
+              display: ["Outfit", "sans-serif"],
+            },
+            colors: {
+              primary: {
+                50: "#f0f9ff",
+                100: "#e0f2fe",
+                200: "#bae6fd",
+                300: "#7dd3fc",
+                400: "#38bdf8",
+                500: "#0ea5e9",
+                600: "#0284c7",
+                700: "#0369a1",
+                800: "#075985",
+                900: "#0c4a6e",
+              },
+              accent: {
+                light: "#c084fc",
+                DEFAULT: "#a855f7",
+                dark: "#7c3aed",
+              },
+            },
+            animation: {
+              blob: "blob 7s infinite",
+              float: "float 6s ease-in-out infinite",
+              "spin-slow": "spin 12s linear infinite",
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            },
+            keyframes: {
+              blob: {
+                "0%": { transform: "translate(0px, 0px) scale(1)" },
+                "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                "100%": { transform: "translate(0px, 0px) scale(1)" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <style>
+      /* CSS Variables for theming */
+      :root {
+        --bg-primary: #fafafa;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #f4f4f5;
+        --text-primary: #18181b;
+        --text-secondary: #52525b;
+        --text-tertiary: #a1a1aa;
+        --border-color: #e4e4e7;
+        --accent-glow: rgba(168, 85, 247, 0.15);
+        --card-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.5);
+      }
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap" rel="stylesheet">
+      .dark {
+        --bg-primary: #09090b;
+        --bg-secondary: #18181b;
+        --bg-tertiary: #27272a;
+        --text-primary: #fafafa;
+        --text-secondary: #a1a1aa;
+        --text-tertiary: #71717a;
+        --border-color: #27272a;
+        --accent-glow: rgba(168, 85, 247, 0.25);
+        --card-bg: rgba(24, 24, 27, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.05);
+      }
 
-    <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        transition:
+          background-color 0.5s ease,
+          color 0.5s ease;
+      }
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+      /* Grain texture overlay */
+      .grain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.03;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+      /* Glassmorphism */
+      .glass {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        transition: all 0.5s ease;
+      }
 
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-</head>
+      /* Custom cursor */
+      .cursor-dot,
+      .cursor-outline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        z-index: 9999;
+        pointer-events: none;
+      }
 
-<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
+      .cursor-dot {
+        width: 5px;
+        height: 5px;
+        background-color: var(--text-primary);
+      }
+
+      .cursor-outline {
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--text-secondary);
+        transition:
+          width 0.2s,
+          height 0.2s,
+          background-color 0.2s;
+      }
+
+      .cursor-outline.hover {
+        width: 50px;
+        height: 50px;
+        background-color: var(--accent-glow);
+        border-color: var(--accent);
+      }
+
+      /* Text scramble effect */
+      .scramble-text {
+        display: inline-block;
+      }
+
+      /* Spotlight effect */
+      .spotlight {
+        background: radial-gradient(
+          600px circle at var(--x) var(--y),
+          var(--accent-glow),
+          transparent 40%
+        );
+      }
+
+      /* Magnetic button */
+      .magnetic {
+        transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      /* Smooth theme transition */
+      .theme-transition {
+        transition:
+          background-color 0.5s ease,
+          color 0.5s ease,
+          border-color 0.5s ease,
+          fill 0.5s ease,
+          stroke 0.5s ease;
+      }
+
+      /* Hide scrollbar but keep functionality */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Unique shape morphing */
+      .morph-shape {
+        animation: morph 8s ease-in-out infinite;
+      }
+
+      @keyframes morph {
+        0%,
+        100% {
+          border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        50% {
+          border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        }
+      }
+
+      /* Stagger animation delays */
+      .stagger-1 {
+        animation-delay: 0.1s;
+      }
+      .stagger-2 {
+        animation-delay: 0.2s;
+      }
+      .stagger-3 {
+        animation-delay: 0.3s;
+      }
+      .stagger-4 {
+        animation-delay: 0.4s;
+      }
+      .stagger-5 {
+        animation-delay: 0.5s;
+      }
+
+      /* Reveal on scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Gradient text */
+      .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .dark .gradient-text {
+        background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Custom selection */
+      ::selection {
+        background: var(--accent);
+        color: white;
+      }
+    </style>
+  </head>
+  <body class="antialiased overflow-x-hidden theme-transition">
+    <!-- Grain Overlay -->
+    <div class="grain"></div>
+
+    <!-- Custom Cursor (desktop only) -->
+    <div class="cursor-dot hidden lg:block"></div>
+    <div class="cursor-outline hidden lg:block"></div>
+
+    <!-- Spotlight Effect -->
+    <div
+      class="fixed inset-0 spotlight pointer-events-none z-0 opacity-0 lg:opacity-100 transition-opacity duration-500"
+    ></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-4">
+      <div class="max-w-7xl mx-auto">
+        <div
+          class="glass rounded-2xl px-6 py-3 flex items-center justify-between"
+        >
+          <!-- Logo -->
+          <a
+            href="#"
+            class="font-display font-bold text-2xl tracking-tight group"
+          >
+            <span
+              class="inline-block transition-transform group-hover:rotate-12"
+              >✦</span
+            >
+            <span class="ml-1">Steph</span>
+          </a>
+
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex items-center gap-8">
+            <a
+              href="#work"
+              class="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors relative group"
+            >
+              Work
+              <span
+                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full"
+              ></span>
+            </a>
+            <a
+              href="#writing"
+              class="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors relative group"
+            >
+              Writing
+              <span
+                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full"
+              ></span>
+            </a>
+            <a
+              href="#about"
+              class="text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors relative group"
+            >
+              About
+              <span
+                class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full"
+              ></span>
+            </a>
+
+            <!-- Theme Toggle -->
+            <button
+              id="themeToggle"
+              class="relative w-14 h-8 rounded-full bg-[var(--bg-tertiary)] border border-[var(--border-color)] flex items-center px-1 transition-colors focus:outline-none magnetic"
+            >
+              <div
+                id="themeToggleKnob"
+                class="w-6 h-6 rounded-full bg-accent shadow-lg transform transition-transform duration-300 flex items-center justify-center"
+              >
+                <!-- Sun icon -->
+                <svg
+                  id="sunIcon"
+                  class="w-3.5 h-3.5 text-white hidden"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                  ></path>
+                </svg>
+                <!-- Moon icon -->
+                <svg
+                  id="moonIcon"
+                  class="w-3.5 h-3.5 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                  ></path>
+                </svg>
+              </div>
+            </button>
+
+            <a
+              href="#contact"
+              class="px-5 py-2.5 bg-[var(--text-primary)] text-[var(--bg-primary)] rounded-full text-sm font-medium hover:scale-105 transition-transform magnetic"
+            >
+              Let's Talk
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobileMenuBtn" class="md:hidden p-2">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
         </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div
+      id="mobileMenu"
+      class="fixed inset-0 z-40 bg-[var(--bg-primary)] transform translate-x-full transition-transform duration-300 md:hidden"
+    >
+      <div class="flex flex-col items-center justify-center h-full gap-8">
+        <a href="#work" class="text-2xl font-display font-bold mobile-link"
+          >Work</a
+        >
+        <a href="#writing" class="text-2xl font-display font-bold mobile-link"
+          >Writing</a
+        >
+        <a href="#about" class="text-2xl font-display font-bold mobile-link"
+          >About</a
+        >
+        <a href="#contact" class="text-2xl font-display font-bold mobile-link"
+          >Contact</a
+        >
+        <button
+          id="mobileThemeToggle"
+          class="mt-4 flex items-center gap-2 text-[var(--text-secondary)]"
+        >
+          <span>Toggle Theme</span>
+        </button>
+      </div>
     </div>
-    <!-- Spinner End -->
 
+    <!-- Hero Section -->
+    <section
+      class="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden"
+    >
+      <!-- Animated Background Blobs -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          class="absolute top-1/4 -left-20 w-96 h-96 bg-accent/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob dark:mix-blend-screen"
+        ></div>
+        <div
+          class="absolute top-1/3 -right-20 w-96 h-96 bg-primary-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000 dark:mix-blend-screen"
+        ></div>
+        <div
+          class="absolute -bottom-32 left-1/2 w-96 h-96 bg-pink-400/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000 dark:mix-blend-screen"
+        ></div>
+      </div>
 
-    <!-- Navbar Start -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow px-4 px-lg-5">
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <!-- Text Content -->
+          <div class="order-2 lg:order-1 text-center lg:text-left">
+            <h1
+              class="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-[0.9] mb-6 reveal stagger-1"
+            >
+              Code that <br />
+              <span class="scramble-text gradient-text" data-text="speaks"
+                >speaks</span
+              >
+            </h1>
 
-    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button> -->
+            <p
+              class="text-lg md:text-xl text-[var(--text-secondary)] max-w-xl mb-8 reveal stagger-2 leading-relaxed"
+            >
+              I'm Stephanie Beatrice — a software developer and technical writer
+              crafting digital experiences that bridge the gap between complex
+              technology and human understanding.
+            </p>
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-        <div class="navbar-nav align-items-center">
-             <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link active" href="#home">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#skill">Skills</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#service">Services</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#project">Projects</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#contact">Contact</a>
-            </li>
-        </ul>
+            <div
+              class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start reveal stagger-3"
+            >
+              <a
+                href="#work"
+                class="group relative px-8 py-4 bg-accent text-white rounded-full font-medium overflow-hidden magnetic"
+              >
+                <span class="relative z-10 flex items-center gap-2">
+                  View Projects
+                  <svg
+                    class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    ></path>
+                  </svg>
+                </span>
+                <div
+                  class="absolute inset-0 bg-accent-dark transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"
+                ></div>
+              </a>
+              <a
+                href="#writing"
+                class="px-8 py-4 border border-[var(--border-color)] rounded-full font-medium hover:bg-[var(--bg-tertiary)] transition-colors magnetic text-[var(--text-primary)]"
+              >
+                Read Articles
+              </a>
+            </div>
+
+            <!-- Stats -->
+            <div
+              class="mt-12 flex gap-8 justify-center lg:justify-start reveal stagger-4"
+            >
+              <div>
+                <div
+                  class="font-display font-bold text-3xl text-[var(--text-primary)]"
+                >
+                  3+
+                </div>
+                <div class="text-sm text-[var(--text-secondary)]">
+                  Years Experience
+                </div>
+              </div>
+              <div class="w-px bg-[var(--border-color)]"></div>
+              <div>
+                <div
+                  class="font-display font-bold text-3xl text-[var(--text-primary)]"
+                >
+                  10+
+                </div>
+                <div class="text-sm text-[var(--text-secondary)]">Projects</div>
+              </div>
+              <div class="w-px bg-[var(--border-color)]"></div>
+              <div>
+                <div
+                  class="font-display font-bold text-3xl text-[var(--text-primary)]"
+                >
+                  1k+
+                </div>
+                <div class="text-sm text-[var(--text-secondary)]">Readers</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visual Element -->
+          <div class="order-1 lg:order-2 flex justify-center reveal">
+            <div class="relative w-80 h-80 md:w-96 md:h-96">
+              <!-- Morphing shape background -->
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-accent/30 to-primary-500/30 morph-shape animate-float"
+              ></div>
+
+              <!-- Content inside shape -->
+              <div
+                class="absolute inset-4 glass rounded-[2rem] flex items-center justify-center overflow-hidden"
+              >
+                <div class="text-center p-8">
+                  <div
+                    class="font-mono text-xs text-[var(--text-tertiary)] mb-2"
+                  >
+                    &lt;developer&gt;
+                  </div>
+                  <div
+                    class="font-display font-bold text-6xl md:text-7xl gradient-text mb-2"
+                  >
+                    AC
+                  </div>
+                  <div class="font-mono text-xs text-[var(--text-tertiary)]">
+                    &lt;/developer&gt;
+                  </div>
+
+                  <!-- Floating code snippets -->
+                  <div
+                    class="absolute top-4 left-4 text-[10px] font-mono text-[var(--text-tertiary)] opacity-50 animate-float"
+                    style="animation-delay: 1s"
+                  >
+                    const steph = new Dev();
+                  </div>
+                  <div
+                    class="absolute bottom-4 right-4 text-[10px] font-mono text-[var(--text-tertiary)] opacity-50 animate-float"
+                    style="animation-delay: 2s"
+                  >
+                    await steph.create();
+                  </div>
+                </div>
+              </div>
+
+              <!-- Orbiting elements -->
+              <div class="absolute inset-0 animate-spin-slow">
+                <div
+                  class="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-accent rounded-full shadow-lg shadow-accent/50"
+                ></div>
+              </div>
+              <div
+                class="absolute inset-0 animate-spin-slow"
+                style="animation-direction: reverse; animation-duration: 15s"
+              >
+                <div
+                  class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3 h-3 bg-primary-400 rounded-full shadow-lg shadow-primary-400/50"
+                ></div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</nav>
+      </div>
 
-    <!-- Navbar End -->
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <svg
+          class="w-6 h-6 text-[var(--text-tertiary)]"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          ></path>
+        </svg>
+      </div>
+    </section>
 
-
-    <!-- Header Start -->
-    <div class="container-fluid bg-light my-6 mt-8" id="home">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 py-6 pb-0 pt-lg-0">
-                    <h3 class="text-primary mb-3">Hi, I'm</h3>
-                    <h1 class="display-3 mb-3">Stephanie Beatrice</h1>
-                    <h2 class="typed-text-output d-inline"></h2>
-                    <div class="typed-text d-none">A Full-stack Software Developer, Technical Writer, Developer Advocate</div>
-                    <div class="d-flex align-items-center pt-5">
-                        <a href="" class="btn btn-primary py-3 px-4 me-5">Download CV</a>
-                        <ul class="social-icon"> 
-                            <li><a href="https://www.linkedin.com/in/stephanie-beatrice-1234/" class="social-icon-link bi-linkedin"></a></li>
-                            <li><a href="https://github.com/stephbeatrice0" class="social-icon-link bi-github"></a></li>
-                            <li><a href="https://twitter.com/steph_beatrice" class="social-icon-link bi-twitter"></a></li>
-                            <li>
-                                <a href="https://stephanieanindo.substack.com" class="social-icon-link">
-                                    <i class="fab fa-substack"></i>
-                                </a>
-                            </li>                
-                        </ul>
-                        <!-- <button type="button" class="btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                            <span></span>
-                        </button>
-                        <h5 class="ms-4 mb-0 d-none d-sm-block">Play Video</h5> -->
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <!-- <img class="img-fluid" src="img/profile.png" alt=""> -->
-                     <p>I am a Software Developer, Technical Writer, and Developer Advocate. I have a passion for creating innovative and user-friendly software solutions that solve real-world problems.</p>
-                     <p>Skip ahead to my <a href="#about">About Me</a> section to learn more about my background and experience.</p>
-                     <p>Skip ahead to my <a href="#skill">Skills</a> section to learn more about my technical expertise.</p>
-                     <p>Skip ahead to my <a href="#service">Services</a> section to learn more about the services I offer.</p>
-                     <p>Skip ahead to my <a href="#project">Projects</a> section to learn more about the projects I have worked on.</p>
-                     <p>Skip ahead to my <a href="#contact">Contact</a> section to learn more about how to get in touch with me.</p>
-                </div>
-            </div>
+    <!-- Selected Work Section -->
+    <section id="work" class="py-32 relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6 reveal"
+        >
+          <div>
+            <h2 class="font-display font-bold text-4xl md:text-6xl mb-4">
+              Selected Work
+            </h2>
+            <p class="text-[var(--text-secondary)] max-w-md">
+              A curation of projects where code meets clarity.
+            </p>
+          </div>
+          <a
+            href="#"
+            class="group flex items-center gap-2 text-accent font-medium hover:gap-4 transition-all"
+          >
+            View All Projects
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              ></path>
+            </svg>
+          </a>
         </div>
-    </div>
-    <!-- Header End -->
 
-
-    <!-- Video Modal Start -->
-    <!-- <div class="modal modal-video fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Youtube Video</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Project 1 -->
+          <article class="group relative reveal stagger-1">
+            <div
+              class="glass rounded-3xl overflow-hidden hover:scale-[1.02] transition-transform duration-500"
+            >
+              <div
+                class="aspect-[4/3] bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 relative overflow-hidden"
+              >
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div
+                    class="w-32 h-32 border-2 border-[var(--border-color)] rounded-2xl flex items-center justify-center group-hover:rotate-12 transition-transform duration-500"
+                  >
+                    <span class="font-mono text-4xl">📚</span>
+                  </div>
                 </div>
-                <div class="modal-body">
-                     <!-- 16:9 aspect ratio --> 
-                    <!-- <div class="ratio ratio-16x9">
-                        <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
-                            allow="autoplay"></iframe>
-                    </div>
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
+                ></div>
+              </div>
+              <div class="p-6">
+                <div class="flex gap-2 mb-3">
+                  <span
+                    class="px-3 py-1 text-xs font-medium bg-[var(--bg-tertiary)] rounded-full text-[var(--text-secondary)]"
+                    >React</span
+                  >
+                  <span
+                    class="px-3 py-1 text-xs font-medium bg-[var(--bg-tertiary)] rounded-full text-[var(--text-secondary)]"
+                    >Node.js</span
+                  >
                 </div>
+                <h3
+                  class="font-display font-bold text-xl mb-2 group-hover:text-accent transition-colors"
+                >
+                  DevDocs Platform
+                </h3>
+                <p class="text-sm text-[var(--text-secondary)] mb-4">
+                  Real-time collaborative documentation platform with markdown
+                  support and version control.
+                </p>
+                <div class="flex gap-4 text-sm font-medium">
+                  <a href="#" class="text-accent hover:underline">Live Demo</a>
+                  <a
+                    href="#"
+                    class="text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+                    >Source</a
+                  >
+                </div>
+              </div>
             </div>
-        </div> -->
-    <!-- </div> --> 
-         <!-- Video Modal End -->
+          </article>
 
-
-    <!-- About Start -->
-    <div class="container-xxl py-6" id="about">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="d-flex align-items-center mb-5">
-                        <div class="years flex-shrink-0 text-center me-4">
-                            <h1 class="display-1 mb-0">3+</h1>
-                            <h5 class="mb-0">Years</h5>
-                        </div>
-                        <h3 class="lh-base mb-0">of working experience as a software developer & technical writer</h3>
-                    </div>
-                    <p class="mb-4">In addition to my development skills, I am also an experienced technical writer. I enjoy breaking down complex technical concepts into clear and concise documentation that is easy for users to understand.</p>
-                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i>Afordable Prices</p>
-                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i>High Quality Product</p>
-                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i>On Time Project Delivery</p>
-                    <a class="btn btn-primary py-3 px-5 mt-3" href="">Read More</a>
+          <!-- Project 2 -->
+          <article class="group relative reveal stagger-2">
+            <div
+              class="glass rounded-3xl overflow-hidden hover:scale-[1.02] transition-transform duration-500"
+            >
+              <div
+                class="aspect-[4/3] bg-gradient-to-br from-cyan-500/20 to-blue-500/20 relative overflow-hidden"
+              >
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div
+                    class="w-32 h-32 border-2 border-[var(--border-color)] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-500"
+                  >
+                    <span class="font-mono text-4xl">📊</span>
+                  </div>
                 </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="row g-3 mb-4">
-                        <div class="col-sm-6">
-                            <img class="img-fluid rounded" src="img/about-1.jpg" alt="">
-                        </div>
-                        <div class="col-sm-6">
-                            <img class="img-fluid rounded" src="img/about-2.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-3">
-                        <h5 class="border-end pe-3 me-3 mb-0">Happy Clients</h5>
-                        <h2 class="text-primary fw-bold mb-0" data-toggle="counter-up">1234</h2>
-                    </div>
-                    <p class="mb-4">Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No stet est diam amet diam ipsum clita labore dolor duo clita.</p>
-                    <div class="d-flex align-items-center mb-3">
-                        <h5 class="border-end pe-3 me-3 mb-0">Projects Completed</h5>
-                        <h2 class="text-primary fw-bold mb-0" data-toggle="counter-up">1234</h2>
-                    </div>
-                    <p class="mb-0">Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No stet est diam amet diam ipsum clita labore dolor duo clita.</p>
+              </div>
+              <div class="p-6">
+                <div class="flex gap-2 mb-3">
+                  <span
+                    class="px-3 py-1 text-xs font-medium bg-[var(--bg-tertiary)] rounded-full text-[var(--text-secondary)]"
+                    >Python</span
+                  >
+                  <span
+                    class="px-3 py-1 text-xs font-medium bg-[var(--bg-tertiary)] rounded-full text-[var(--text-secondary)]"
+                    >FastAPI</span
+                  >
                 </div>
+                <h3
+                  class="font-display font-bold text-xl mb-2 group-hover:text-accent transition-colors"
+                >
+                  API Analytics
+                </h3>
+                <p class="text-sm text-[var(--text-secondary)] mb-4">
+                  Real-time monitoring dashboard for API performance, error
+                  tracking, and usage metrics.
+                </p>
+                <div class="flex gap-4 text-sm font-medium">
+                  <a href="#" class="text-accent hover:underline">Live Demo</a>
+                  <a
+                    href="#"
+                    class="text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+                    >Case Study</a
+                  >
+                </div>
+              </div>
             </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="group relative reveal stagger-3">
+            <div
+              class="glass rounded-3xl overflow-hidden hover:scale-[1.02] transition-transform duration-500"
+            >
+              <div
+                class="aspect-[4/3] bg-gradient-to-br from-amber-500/20 to-orange-500/20 relative overflow-hidden"
+              >
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div
+                    class="w-32 h-32 border-2 border-[var(--border-color)] rounded-full flex items-center justify-center group-hover:rotate-180 transition-transform duration-700"
+                  >
+                    <span class="font-mono text-4xl">✍️</span>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="flex gap-2 mb-3">
+                  <span
+                    class="px-3 py-1 text-xs font-medium bg-[var(--bg-tertiary)] rounded-full text-[var(--text-secondary)]"
+                    >Next.js</span
+                  >
+                  <span
+                    class="px-3 py-1 text-xs font-medium bg-[var(--bg-tertiary)] rounded-full text-[var(--text-secondary)]"
+                    >MDX</span
+                  >
+                </div>
+                <h3
+                  class="font-display font-bold text-xl mb-2 group-hover:text-accent transition-colors"
+                >
+                  Tech Blog Engine
+                </h3>
+                <p class="text-sm text-[var(--text-secondary)] mb-4">
+                  Optimized blogging platform for technical writers with code
+                  highlighting and MDX support.
+                </p>
+                <div class="flex gap-4 text-sm font-medium">
+                  <a href="#" class="text-accent hover:underline">Template</a>
+                  <a
+                    href="#"
+                    class="text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
+                    >Docs</a
+                  >
+                </div>
+              </div>
+            </div>
+          </article>
         </div>
-    </div>
-    <!-- About End -->
+      </div>
+    </section>
 
-
-    <!-- Expertise Start -->
-    <div class="container-xxl py-6 pb-5" id="skill">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <h1 class="display-5 mb-5">Skills & Experience</h1>
-                    <p class="mb-4">Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No stet est diam rebum amet diam ipsum clita dolor duo clita sit.</p>
-                    <h3 class="mb-4">My Skills</h3>
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">TypeScript</h6>
-                                    <h6 class="font-weight-bold">95%</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Markdown</h6>
-                                    <h6 class="font-weight-bold">85%</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">PHP</h6>
-                                    <h6 class="font-weight-bold">90%</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">NextJs</h6>
-                                    <h6 class="font-weight-bold">90%</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">React</h6>
-                                    <h6 class="font-weight-bold">95%</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-dark" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <h6 class="font-weight-bold">Technical content</h6>
-                                    <h6 class="font-weight-bold">95%</h6>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <ul class="nav nav-pills rounded border border-2 border-primary mb-5">
-                        <li class="nav-item w-50">
-                            <button class="nav-link w-100 py-3 fs-5 active" data-bs-toggle="pill" href="#tab-1">Experience</button>
-                        </li>
-                        <li class="nav-item w-50">
-                            <button class="nav-link w-100 py-3 fs-5" data-bs-toggle="pill" href="#tab-2">Education</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="tab-1" class="tab-pane fade show p-0 active">
-                            <div class="row gy-5 gx-4">
-                                <div class="col-sm-6">
-                                    <h5>UI Designer</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2000 - 2045</p>
-                                    <h6 class="mb-0">Apex Software Inc</h6>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h5>Product Designer</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2000 - 2045</p>
-                                    <h6 class="mb-0">Apex Software Inc</h6>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h5>Web Designer</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2000 - 2045</p>
-                                    <h6 class="mb-0">Apex Software Inc</h6>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h5>Apps Designer</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2000 - 2045</p>
-                                    <h6 class="mb-0">Apex Software Inc</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="tab-2" class="tab-pane fade show p-0">
-                            <div class="row gy-5 gx-4">
-                                <div class="col-sm-6">
-                                    <h5>UI Design Course</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2000 - 2045</p>
-                                    <h6 class="mb-0">Cambridge University</h6>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h5>IOS Development</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2000 - 2045</p>
-                                    <h6 class="mb-0">Cambridge University</h6>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h5>Web Design</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2000 - 2045</p>
-                                    <h6 class="mb-0">Cambridge University</h6>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h5>Apps Design</h5>
-                                    <hr class="text-primary my-2">
-                                    <p class="text-primary mb-1">2000 - 2045</p>
-                                    <h6 class="mb-0">Cambridge University</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Writing Section -->
+    <section id="writing" class="py-32 bg-[var(--bg-secondary)] relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+          <div class="lg:sticky lg:top-32 reveal">
+            <h2 class="font-display font-bold text-4xl md:text-6xl mb-6">
+              Technical Writing
+            </h2>
+            <p
+              class="text-[var(--text-secondary)] text-lg mb-8 leading-relaxed"
+            >
+              I believe great documentation is as important as great code. My
+              articles focus on making complex concepts accessible to developers
+              at all levels.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-4 py-2 glass rounded-full text-sm font-medium"
+                >API Design</span
+              >
+              <span class="px-4 py-2 glass rounded-full text-sm font-medium"
+                >React Patterns</span
+              >
+              <span class="px-4 py-2 glass rounded-full text-sm font-medium"
+                >System Architecture</span
+              >
+              <span class="px-4 py-2 glass rounded-full text-sm font-medium"
+                >Developer Experience</span
+              >
             </div>
+          </div>
+
+          <div class="space-y-4">
+            <!-- Article 1 -->
+            <a href="#" class="block group reveal stagger-1">
+              <article
+                class="glass rounded-2xl p-6 hover:border-accent/30 transition-all duration-300 border border-transparent"
+              >
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                      <span
+                        class="text-xs font-medium text-accent uppercase tracking-wider"
+                        >Tutorial</span
+                      >
+                      <span
+                        class="w-1 h-1 rounded-full bg-[var(--text-tertiary)]"
+                      ></span>
+                      <span class="text-xs text-[var(--text-tertiary)]"
+                        >8 min read</span
+                      >
+                    </div>
+                    <h3
+                      class="font-display font-bold text-xl mb-2 group-hover:text-accent transition-colors"
+                    >
+                      Building Accessible React Components from Scratch
+                    </h3>
+                    <p
+                      class="text-sm text-[var(--text-secondary)] line-clamp-2"
+                    >
+                      A deep dive into creating inclusive UI components that
+                      work for everyone, covering ARIA labels, keyboard
+                      navigation, and focus management.
+                    </p>
+                  </div>
+                  <div
+                    class="w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors flex-shrink-0"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </article>
+            </a>
+
+            <!-- Article 2 -->
+            <a href="#" class="block group reveal stagger-2">
+              <article
+                class="glass rounded-2xl p-6 hover:border-accent/30 transition-all duration-300 border border-transparent"
+              >
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                      <span
+                        class="text-xs font-medium text-primary-500 uppercase tracking-wider"
+                        >API Design</span
+                      >
+                      <span
+                        class="w-1 h-1 rounded-full bg-[var(--text-tertiary)]"
+                      ></span>
+                      <span class="text-xs text-[var(--text-tertiary)]"
+                        >12 min read</span
+                      >
+                    </div>
+                    <h3
+                      class="font-display font-bold text-xl mb-2 group-hover:text-accent transition-colors"
+                    >
+                      REST vs GraphQL: A Technical Writer's Perspective
+                    </h3>
+                    <p
+                      class="text-sm text-[var(--text-secondary)] line-clamp-2"
+                    >
+                      How API design choices impact documentation quality and
+                      developer onboarding experiences.
+                    </p>
+                  </div>
+                  <div
+                    class="w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors flex-shrink-0"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </article>
+            </a>
+
+            <!-- Article 3 -->
+            <a href="#" class="block group reveal stagger-3">
+              <article
+                class="glass rounded-2xl p-6 hover:border-accent/30 transition-all duration-300 border border-transparent"
+              >
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                      <span
+                        class="text-xs font-medium text-pink-500 uppercase tracking-wider"
+                        >Essay</span
+                      >
+                      <span
+                        class="w-1 h-1 rounded-full bg-[var(--text-tertiary)]"
+                      ></span>
+                      <span class="text-xs text-[var(--text-tertiary)]"
+                        >5 min read</span
+                      >
+                    </div>
+                    <h3
+                      class="font-display font-bold text-xl mb-2 group-hover:text-accent transition-colors"
+                    >
+                      The Art of Technical Communication
+                    </h3>
+                    <p
+                      class="text-sm text-[var(--text-secondary)] line-clamp-2"
+                    >
+                      Why the best developers are also great writers, and how to
+                      improve your technical communication skills.
+                    </p>
+                  </div>
+                  <div
+                    class="w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors flex-shrink-0"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </article>
+            </a>
+
+            <div class="pt-4 reveal stagger-4">
+              <a
+                href="#"
+                class="inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-accent transition-colors font-medium"
+              >
+                Browse all articles
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  ></path>
+                </svg>
+              </a>
+            </div>
+          </div>
         </div>
-    </div>
-    <!-- Expertise End -->
+      </div>
+    </section>
 
+    <!-- About / Experience Section -->
+    <section id="about" class="py-32 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="order-2 lg:order-1 reveal">
+            <h2 class="font-display font-bold text-4xl md:text-5xl mb-6">
+              Experience & Background
+            </h2>
+            <div class="space-y-6 text-[var(--text-secondary)] leading-relaxed">
+              <p>
+                With 3 years of experience spanning startups and established
+                tech companies, I've developed a unique perspective on building
+                software that scales and documentation that actually helps.
+              </p>
+              <p>
+                My approach combines technical precision with creative
+                problem-solving. Whether I'm architecting a new feature or
+                explaining a complex system, I focus on clarity and user
+                experience.
+              </p>
+            </div>
 
-    <!-- Service Start -->
-    <div class="container-fluid bg-light my-5 py-6" id="service">
-        <div class="container">
-            <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-6">
-                    <h1 class="display-5 mb-0">My Services</h1>
+            <!-- Timeline -->
+            <div class="mt-12 space-y-8">
+              <div
+                class="relative pl-8 border-l-2 border-[var(--border-color)] hover:border-accent transition-colors group reveal stagger-1"
+              >
+                <div
+                  class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[var(--bg-primary)] border-2 border-[var(--border-color)] group-hover:border-accent transition-colors"
+                ></div>
+                <div class="mb-1">
+                  <span class="text-sm font-medium text-accent"
+                    >2023 — Present</span
+                  >
                 </div>
-                <div class="col-lg-6 text-lg-end">
-                    <a class="btn btn-primary py-3 px-5" href="">Hire Me</a>
+                <h4 class="font-display font-bold text-lg mb-1">
+                  Software Engineer & Tech Writer
+                </h4>
+                <p class="text-sm text-[var(--text-secondary)]">
+                  TechFlow Solutions — Full-stack development and documentation
+                  strategy
+                </p>
+              </div>
+
+              <div
+                class="relative pl-8 border-l-2 border-[var(--border-color)] hover:border-accent transition-colors group reveal stagger-2"
+              >
+                <div
+                  class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[var(--bg-primary)] border-2 border-[var(--border-color)] group-hover:border-accent transition-colors"
+                ></div>
+                <div class="mb-1">
+                  <span class="text-sm font-medium text-accent"
+                    >2022 — 2023</span
+                  >
                 </div>
+                <h4 class="font-display font-bold text-lg mb-1">
+                  Junior Developer
+                </h4>
+                <p class="text-sm text-[var(--text-secondary)]">
+                  StartupXYZ — React, Node.js, and technical content creation
+                </p>
+              </div>
+
+              <div
+                class="relative pl-8 border-l-2 border-[var(--border-color)] hover:border-accent transition-colors group reveal stagger-3"
+              >
+                <div
+                  class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[var(--bg-primary)] border-2 border-[var(--border-color)] group-hover:border-accent transition-colors"
+                ></div>
+                <div class="mb-1">
+                  <span class="text-sm font-medium text-accent"
+                    >2021 — 2022</span
+                  >
+                </div>
+                <h4 class="font-display font-bold text-lg mb-1">
+                  Technical Writing Intern
+                </h4>
+                <p class="text-sm text-[var(--text-secondary)]">
+                  CloudScale Inc — API documentation and developer guides
+                </p>
+              </div>
             </div>
-            <div class="row g-4">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
-                        <div class="bg-icon flex-shrink-0 mb-3">
-                            <i class="fa fa-crop-alt fa-2x text-dark"></i>
-                        </div>
-                        <div class="ms-sm-4">
-                            <h4 class="mb-3">Creative Design</h4>
-                            <h6 class="mb-3">Start from <span class="text-primary">$199</span></h6>
-                            <span>Stet lorem dolor diam amet vero eos. No stet est diam amet diam ipsum. Clita dolor duo clita sit sed sit dolor eos.</span>
-                        </div>
+          </div>
+
+          <div class="order-1 lg:order-2 reveal">
+            <div class="relative">
+              <!-- Decorative elements -->
+              <div
+                class="absolute -inset-4 bg-gradient-to-r from-accent/20 to-primary-500/20 rounded-3xl blur-2xl"
+              ></div>
+
+              <div class="relative glass rounded-3xl p-8">
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-4">
+                    <div
+                      class="aspect-square rounded-2xl bg-[var(--bg-tertiary)] flex items-center justify-center text-4xl animate-float"
+                    >
+                      ⚡
                     </div>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
-                        <div class="bg-icon flex-shrink-0 mb-3">
-                            <i class="fa fa-code-branch fa-2x text-dark"></i>
-                        </div>
-                        <div class="ms-sm-4">
-                            <h4 class="mb-3">Graphic Design</h4>
-                            <h6 class="mb-3">Start from <span class="text-primary">$199</span></h6>
-                            <span>Stet lorem dolor diam amet vero eos. No stet est diam amet diam ipsum. Clita dolor duo clita sit sed sit dolor eos.</span>
-                        </div>
+                    <div
+                      class="aspect-[2/1] rounded-2xl bg-gradient-to-br from-accent/20 to-transparent flex items-center justify-center"
+                    >
+                      <span class="font-mono text-sm">performance</span>
                     </div>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
-                        <div class="bg-icon flex-shrink-0 mb-3">
-                            <i class="fa fa-code fa-2x text-dark"></i>
-                        </div>
-                        <div class="ms-sm-4">
-                            <h4 class="mb-3">Web Design</h4>
-                            <h6 class="mb-3">Start from <span class="text-primary">$199</span></h6>
-                            <span>Stet lorem dolor diam amet vero eos. No stet est diam amet diam ipsum. Clita dolor duo clita sit sed sit dolor eos.</span>
-                        </div>
+                  </div>
+                  <div class="space-y-4 pt-8">
+                    <div
+                      class="aspect-[2/1] rounded-2xl bg-gradient-to-br from-primary-500/20 to-transparent flex items-center justify-center"
+                    >
+                      <span class="font-mono text-sm">clean_code</span>
                     </div>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
-                        <div class="bg-icon flex-shrink-0 mb-3">
-                            <i class="fa fa-laptop-code fa-2x text-dark"></i>
-                        </div>
-                        <div class="ms-sm-4">
-                            <h4 class="mb-3">UI/UX Design</h4>
-                            <h6 class="mb-3">Start from <span class="text-primary">$199</span></h6>
-                            <span>Stet lorem dolor diam amet vero eos. No stet est diam amet diam ipsum. Clita dolor duo clita sit sed sit dolor eos.</span>
-                        </div>
+                    <div
+                      class="aspect-square rounded-2xl bg-[var(--bg-tertiary)] flex items-center justify-center text-4xl animate-float"
+                      style="animation-delay: 1s"
+                    >
+                      🎯
                     </div>
+                  </div>
                 </div>
+
+                <div class="mt-6 p-4 rounded-xl bg-[var(--bg-tertiary)]">
+                  <div class="flex items-center gap-3 mb-2">
+                    <div
+                      class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
+                    ></div>
+                    <span class="text-xs font-mono text-[var(--text-tertiary)]"
+                      >current_status.js</span
+                    >
+                  </div>
+                  <code
+                    class="text-sm font-mono text-[var(--text-secondary)] block"
+                  >
+                    const status = {<br />
+                    &nbsp;&nbsp;learning: "Rust",<br />
+                    &nbsp;&nbsp;reading: "Clean Architecture",<br />
+                    &nbsp;&nbsp;building: "Open source tools"<br />
+                    };
+                  </code>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-    <!-- Service End -->
+      </div>
+    </section>
 
-
-    <!-- Projects Start -->
-    <div class="container-xxl py-6 pt-5" id="project">
-        <div class="container">
-            <div class="row g-5 mb-5 align-items-center wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-6">
-                    <h1 class="display-5 mb-0">My Projects</h1>
-                </div>
-                <div class="col-lg-6 text-lg-end">
-                    <ul class="list-inline mx-n3 mb-0" id="portfolio-flters">
-                        <li class="mx-3 active" data-filter="*">All Projects</li>
-                        <li class="mx-3" data-filter=".first">UI/UX Design</li>
-                        <li class="mx-3" data-filter=".second">Graphic Design</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-4 col-md-6 portfolio-item first">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-1.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item second">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-2.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item first">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-3.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item second">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-4.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item first">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-5.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item second">
-                    <div class="portfolio-img rounded overflow-hidden">
-                        <img class="img-fluid" src="img/project-6.jpg" alt="">
-                        <div class="portfolio-btn">
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href=""><i class="fa fa-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 bg-[var(--bg-secondary)] relative">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <div class="reveal">
+          <h2 class="font-display font-bold text-4xl md:text-6xl mb-6">
+            Let's create something together
+          </h2>
+          <p
+            class="text-[var(--text-secondary)] text-lg mb-12 max-w-2xl mx-auto"
+          >
+            Have a project in mind or want to collaborate? I'm always open to
+            discussing new opportunities and ideas.
+          </p>
         </div>
-    </div>
-    <!-- Projects End -->
 
+        <div class="glass rounded-3xl p-8 md:p-12 reveal">
+          <form
+            class="space-y-6 text-left"
+            onsubmit="
+              event.preventDefault();
+              showToast('Message sent! I\'ll get back to you soon.');
+            "
+          >
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label
+                  class="block text-sm font-medium mb-2 text-[var(--text-secondary)]"
+                  >Name</label
+                >
+                <input
+                  type="text"
+                  required
+                  class="w-full px-4 py-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)] focus:border-accent focus:outline-none transition-colors text-[var(--text-primary)]"
+                  placeholder="Jane Doe"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-sm font-medium mb-2 text-[var(--text-secondary)]"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  required
+                  class="w-full px-4 py-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)] focus:border-accent focus:outline-none transition-colors text-[var(--text-primary)]"
+                  placeholder="jane@example.com"
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-[var(--text-secondary)]"
+                >What's this about?</label
+              >
+              <select
+                class="w-full px-4 py-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)] focus:border-accent focus:outline-none transition-colors text-[var(--text-primary)]"
+              >
+                <option>Project Collaboration</option>
+                <option>Technical Writing</option>
+                <option>Consulting</option>
+                <option>Just saying hi</option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-[var(--text-secondary)]"
+                >Message</label
+              >
+              <textarea
+                rows="4"
+                required
+                class="w-full px-4 py-3 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-color)] focus:border-accent focus:outline-none transition-colors text-[var(--text-primary)] resize-none"
+                placeholder="Tell me about your project..."
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="w-full py-4 bg-accent text-white rounded-xl font-medium hover:bg-accent-dark transition-colors magnetic relative overflow-hidden group"
+            >
+              <span class="relative z-10">Send Message</span>
+              <div
+                class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"
+              ></div>
+            </button>
+          </form>
 
-    <!-- Team Start -->
-    <div class="container-xxl py-6 pb-5" id="team">
-        <div class="container">
-            <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-6">
-                    <h1 class="display-5 mb-0">Team Members</h1>
-                </div>
-                <div class="col-lg-6 text-lg-end">
-                    <a class="btn btn-primary py-3 px-5" href="">Contact Us</a>
-                </div>
+          <div
+            class="mt-8 pt-8 border-t border-[var(--border-color)] flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <a
+              href="mailto:stephanieanindo@gmail.com"
+              class="text-[var(--text-secondary)] hover:text-accent transition-colors"
+            >
+              stephanieanindo@gmail.com
+            </a>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center hover:bg-accent hover:text-white transition-colors magnetic"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center hover:bg-accent hover:text-white transition-colors magnetic"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center hover:bg-accent hover:text-white transition-colors magnetic"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
+                  />
+                </svg>
+              </a>
             </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item position-relative">
-                        <img class="img-fluid rounded" src="img/team-1.jpg" alt="">
-                        <div class="team-text bg-white rounded-end p-4">
-                            <div>
-                                <h5>Full Name</h5>
-                                <span>Designer</span>
-                            </div>
-                            <i class="fa fa-arrow-right fa-2x text-primary"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item position-relative">
-                        <img class="img-fluid rounded" src="img/team-2.jpg" alt="">
-                        <div class="team-text bg-white rounded-end p-4">
-                            <div>
-                                <h5>Full Name</h5>
-                                <span>Designer</span>
-                            </div>
-                            <i class="fa fa-arrow-right fa-2x text-primary"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="team-item position-relative">
-                        <img class="img-fluid rounded" src="img/team-3.jpg" alt="">
-                        <div class="team-text bg-white rounded-end p-4">
-                            <div>
-                                <h5>Full Name</h5>
-                                <span>Designer</span>
-                            </div>
-                            <i class="fa fa-arrow-right fa-2x text-primary"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-[var(--border-color)]">
+      <div
+        class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4"
+      >
+        <p class="text-sm text-[var(--text-tertiary)]">
+          © 2026 Stephanie Beatrice. Crafted with care.
+        </p>
+        <button
+          onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+          class="text-sm text-[var(--text-tertiary)] hover:text-accent transition-colors flex items-center gap-2"
+        >
+          Back to top
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div
+      id="toast"
+      class="fixed bottom-8 right-8 transform translate-y-20 opacity-0 transition-all duration-300 z-50"
+    >
+      <div
+        class="glass px-6 py-4 rounded-xl flex items-center gap-3 shadow-2xl"
+      >
+        <svg
+          class="w-5 h-5 text-green-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 13l4 4L19 7"
+          ></path>
+        </svg>
+        <span id="toastMessage" class="font-medium">Message sent!</span>
+      </div>
     </div>
-    <!-- Team End -->
 
+    <script>
+      // Theme Toggle Logic
+      const themeToggle = document.getElementById("themeToggle");
+      const themeToggleKnob = document.getElementById("themeToggleKnob");
+      const sunIcon = document.getElementById("sunIcon");
+      const moonIcon = document.getElementById("moonIcon");
+      const mobileThemeToggle = document.getElementById("mobileThemeToggle");
+      const html = document.documentElement;
 
-    <!-- Testimonial Start -->
-    <div class="container-fluid bg-light py-5 my-5" id="testimonial">
-        <div class="container-fluid py-5">
-            <h1 class="display-5 text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Testimonial</h1>
-            <div class="row justify-content-center">
-                <div class="col-lg-3 d-none d-lg-block">
-                    <div class="testimonial-left h-100">
-                        <img class="img-fluid wow fadeIn" data-wow-delay="0.1s" src="img/testimonial-1.jpg" alt="">
-                        <img class="img-fluid wow fadeIn" data-wow-delay="0.3s" src="img/testimonial-2.jpg" alt="">
-                        <img class="img-fluid wow fadeIn" data-wow-delay="0.5s" src="img/testimonial-3.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="owl-carousel testimonial-carousel">
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle border border-secondary p-2 mx-auto" src="img/testimonial-1.jpg" alt="">
-                                <div class="testimonial-icon">
-                                    <i class="fa fa-quote-left text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-5 fst-italic">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <hr class="w-25 mx-auto">
-                            <h5>Client Name</h5>
-                            <span>Profession</span>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle border border-secondary p-2 mx-auto" src="img/testimonial-2.jpg" alt="">
-                                <div class="testimonial-icon">
-                                    <i class="fa fa-quote-left text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-5 fst-italic">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <hr class="w-25 mx-auto">
-                            <h5>Client Name</h5>
-                            <span>Profession</span>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle border border-secondary p-2 mx-auto" src="img/testimonial-3.jpg" alt="">
-                                <div class="testimonial-icon">
-                                    <i class="fa fa-quote-left text-primary"></i>
-                                </div>
-                            </div>
-                            <p class="fs-5 fst-italic">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat.</p>
-                            <hr class="w-25 mx-auto">
-                            <h5>Client Name</h5>
-                            <span>Profession</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 d-none d-lg-block">
-                    <div class="testimonial-right h-100">
-                        <img class="img-fluid wow fadeIn" data-wow-delay="0.1s" src="img/testimonial-1.jpg" alt="">
-                        <img class="img-fluid wow fadeIn" data-wow-delay="0.3s" src="img/testimonial-2.jpg" alt="">
-                        <img class="img-fluid wow fadeIn" data-wow-delay="0.5s" src="img/testimonial-3.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
+      // Check for saved theme preference or default to dark
+      const currentTheme = localStorage.getItem("theme") || "dark";
+      if (currentTheme === "dark") {
+        html.classList.add("dark");
+        themeToggleKnob.style.transform = "translateX(0)";
+        sunIcon.classList.add("hidden");
+        moonIcon.classList.remove("hidden");
+      } else {
+        html.classList.remove("dark");
+        themeToggleKnob.style.transform = "translateX(24px)";
+        sunIcon.classList.remove("hidden");
+        moonIcon.classList.add("hidden");
+      }
 
+      function toggleTheme() {
+        if (html.classList.contains("dark")) {
+          html.classList.remove("dark");
+          localStorage.setItem("theme", "light");
+          themeToggleKnob.style.transform = "translateX(24px)";
+          sunIcon.classList.remove("hidden");
+          moonIcon.classList.add("hidden");
+        } else {
+          html.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+          themeToggleKnob.style.transform = "translateX(0)";
+          sunIcon.classList.add("hidden");
+          moonIcon.classList.remove("hidden");
+        }
+      }
 
-    <!-- Contact Start -->
-    <div class="container-xxl pb-5" id="contact">
-        <div class="container py-5">
-            <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-6">
-                    <h1 class="display-5 mb-0">Let's Work Together</h1>
-                </div>
-                <div class="col-lg-6 text-lg-end">
-                    <a class="btn btn-primary py-3 px-5" href="">Say Hello</a>
-                </div>
-            </div>
-            <div class="row g-5">
-                <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <p class="mb-2">My office:</p>
-                    <h3 class="fw-bold">123 Street, New York, USA</h3>
-                    <hr class="w-100">
-                    <p class="mb-2">Call me:</p>
-                    <h3 class="fw-bold">+012 345 6789</h3>
-                    <hr class="w-100">
-                    <p class="mb-2">Mail me:</p>
-                    <h3 class="fw-bold">info@example.com</h3>
-                    <hr class="w-100">
-                    <p class="mb-2">Follow me:</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-square btn-primary me-2" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-square btn-primary me-2" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-primary me-2" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-square btn-primary me-2" href=""><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
-                    <form>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                    <label for="name">Your Name</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                    <label for="email">Your Email</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                    <label for="subject">Subject</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
-                                    <label for="message">Message</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary py-3 px-5" type="submit">Send Message</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Contact End -->
+      themeToggle.addEventListener("click", toggleTheme);
+      mobileThemeToggle.addEventListener("click", toggleTheme);
 
+      // Custom Cursor
+      const cursorDot = document.querySelector(".cursor-dot");
+      const cursorOutline = document.querySelector(".cursor-outline");
 
-    <!-- Map Start -->
-    <div class="container-xxl pt-5 px-0 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container-xxl pt-5 px-0">
-            <div class="bg-dark">
-                <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd"
-                frameborder="0" style="width: 100%; height: 450px; border:0;" allowfullscreen="" aria-hidden="false"
-                tabindex="0"></iframe>
-            </div>
-        </div>
-    </div>
-    <!-- Map End -->
+      window.addEventListener("mousemove", (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
 
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
 
-    <!-- Copyright Start -->
-    <div class="container-fluid bg-dark text-white py-4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom text-secondary" href="#">Your Site Name</a>, All Right Reserved.
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a class="border-bottom text-secondary" href="https://htmlcodex.com">HTML Codex</a>
-                        <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Copyright End -->
+        cursorOutline.animate(
+          {
+            left: `${posX}px`,
+            top: `${posY}px`,
+          },
+          { duration: 500, fill: "forwards" },
+        );
+      });
 
+      // Cursor hover effect
+      const interactiveElements = document.querySelectorAll(
+        "a, button, .magnetic",
+      );
+      interactiveElements.forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          cursorOutline.classList.add("hover");
+        });
+        el.addEventListener("mouseleave", () => {
+          cursorOutline.classList.remove("hover");
+        });
+      });
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+      // Spotlight effect
+      const spotlight = document.querySelector(".spotlight");
+      document.addEventListener("mousemove", (e) => {
+        spotlight.style.setProperty("--x", `${e.clientX}px`);
+        spotlight.style.setProperty("--y", `${e.clientY}px`);
+      });
 
+      // Magnetic buttons
+      const magneticElements = document.querySelectorAll(".magnetic");
+      magneticElements.forEach((elem) => {
+        elem.addEventListener("mousemove", (e) => {
+          const rect = elem.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/typed/typed.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/isotope/isotope.pkgd.min.js"></script>
-    <script src="lib/lightbox/js/lightbox.min.js"></script>
+          elem.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-</body>
+        elem.addEventListener("mouseleave", () => {
+          elem.style.transform = "translate(0, 0)";
+        });
+      });
 
+      // Text scramble effect
+      class TextScramble {
+        constructor(el) {
+          this.el = el;
+          this.chars = "!<>-_\\/[]{}—=+*^?#________";
+          this.update = this.update.bind(this);
+        }
+
+        setText(newText) {
+          const oldText = this.el.innerText;
+          const length = Math.max(oldText.length, newText.length);
+          const promise = new Promise((resolve) => (this.resolve = resolve));
+          this.queue = [];
+          for (let i = 0; i < length; i++) {
+            const from = oldText[i] || "";
+            const to = newText[i] || "";
+            const start = Math.floor(Math.random() * 40);
+            const end = start + Math.floor(Math.random() * 40);
+            this.queue.push({ from, to, start, end });
+          }
+          cancelAnimationFrame(this.frameRequest);
+          this.frame = 0;
+          this.update();
+          return promise;
+        }
+
+        update() {
+          let output = "";
+          let complete = 0;
+          for (let i = 0, n = this.queue.length; i < n; i++) {
+            let { from, to, start, end, char } = this.queue[i];
+            if (this.frame >= end) {
+              complete++;
+              output += to;
+            } else if (this.frame >= start) {
+              if (!char || Math.random() < 0.28) {
+                char = this.randomChar();
+                this.queue[i].char = char;
+              }
+              output += `<span class="text-accent">${char}</span>`;
+            } else {
+              output += from;
+            }
+          }
+          this.el.innerHTML = output;
+          if (complete === this.queue.length) {
+            this.resolve();
+          } else {
+            this.frameRequest = requestAnimationFrame(this.update);
+            this.frame++;
+          }
+        }
+
+        randomChar() {
+          return this.chars[Math.floor(Math.random() * this.chars.length)];
+        }
+      }
+
+      // Initialize scramble
+      const scrambleEl = document.querySelector(".scramble-text");
+      if (scrambleEl) {
+        const fx = new TextScramble(scrambleEl);
+        let counter = 0;
+        const words = ["speaks", "scales", "shines", "matters"];
+
+        const next = () => {
+          fx.setText(words[counter]).then(() => {
+            setTimeout(next, 3000);
+          });
+          counter = (counter + 1) % words.length;
+        };
+
+        setTimeout(next, 2000);
+      }
+
+      // Intersection Observer for reveal animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".reveal").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Mobile menu
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const mobileLinks = document.querySelectorAll(".mobile-link");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("translate-x-full");
+      });
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("translate-x-full");
+        });
+      });
+
+      // Toast notification
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toastMessage");
+        toastMessage.textContent = message;
+        toast.classList.remove("translate-y-20", "opacity-0");
+
+        setTimeout(() => {
+          toast.classList.add("translate-y-20", "opacity-0");
+        }, 3000);
+      }
+
+      // Smooth scroll for navigation
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
